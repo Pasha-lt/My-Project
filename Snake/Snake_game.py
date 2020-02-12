@@ -1,6 +1,6 @@
 import random
 from tkinter import *
-from PIL  import Image, ImageTk # Нужно добавить модуль для управления графикой.
+from PIL  import Image, ImageTk # Нужно добавить модуль для управления графикой(pillow).
 
 '''
 Реализована простая игра(Змейка). 
@@ -19,7 +19,7 @@ WIDTH = 800
 HEIGHT = 800
 BODYSIZE = 50 # Размер клетки.
 STARTDELAY = 300 # Начальный интервал для нашего таймера(что бы создать анимацию).
-MINDELAY = 100 # После каждого сьедания яблока будем увеличивать скорость, но ниже 100 не ставим.
+MINDELAY = 100 # После каждого сьедания яблока будем увеличивать скорость, но ниже 100 не ставим(что бы сложность была реальная).
 STEPDELAY = 20 # Будем увеличивать скорость на 20 единиц после каждого яблока.
 LENGTH = 3 # Начальная длина змейки.
 
@@ -35,14 +35,14 @@ class Snake(Canvas): # Наследуемся от класса канвас, ч
     body = False
     apple = False
     delay = 0
-    direction = 'Right' # Указываем направление в котором будет двигатся
-    directiontemp = 'Right' # Переменая в которой будет хранится указания изминения движения(пользователь уже назал, но к змейке оно еще не применилось).
+    direction = 'Right' # Указываем направление в котором будет двигатся змейка изначально.
+    directiontemp = 'Right' # Переменая в которой будет хранится указания изминения движения(пользователь уже назвал, но к змейке оно еще не применилось).
     loss = False # Переменая которая будет отвечать проиграл пользователь или нет.
 
 
     def __init__(self):
-        Canvas.__init__(self, width=WIDTH, height=HEIGHT, background='black', highlightthickness=0) # Убераем белую рамку.
-        self.focus_get() # Вызываем фокус, что бы введеные команды могли сразу обрабатыватся
+        Canvas.__init__(self, width=WIDTH, height=HEIGHT, background='black', highlightthickness=0) # Убераем белую рамку(highlightthickness=0).
+        self.focus_get() # Вызываем фокус, что бы введеные команды могли сразу обрабатыватся.
         self.bind_all('<Key>', self.onKeyPressed)# Вешаем биндинг указываем что хотим обрабатывать абсолютно все клавиши которые нажимает пользователь.
         self.loadResourse() # Создаем метод для загрузки картинок и ниже прописываем его.
         self.beginplay() # Делаем что бы при запуске програмы сразу запускалась игра.
@@ -51,7 +51,7 @@ class Snake(Canvas): # Наследуемся от класса канвас, ч
 
     def loadResourse(self):
         self.headImage = Image.open('images/head.png') # Указываем адрес к рисунку Image берем из папки.
-        self.head = ImageTk.PhotoImage(self.headImage.resize((BODYSIZE, BODYSIZE), Image.ANTIALIAS)) # Вызываем resize что бы преобразовать картинку в используем что бы изображение было сглаженым Image.ANTIALIAS.
+        self.head = ImageTk.PhotoImage(self.headImage.resize((BODYSIZE, BODYSIZE), Image.ANTIALIAS)) # Вызываем resize что бы преобразовать картинку, используем что бы изображение было сглаженым Image.ANTIALIAS.
         self.body = ImageTk.PhotoImage(Image.open('images/body.png').resize((BODYSIZE, BODYSIZE), Image.ANTIALIAS))
         self.apple = ImageTk.PhotoImage(Image.open('images/apple.png').resize((BODYSIZE, BODYSIZE), Image.ANTIALIAS))
 
@@ -61,13 +61,13 @@ class Snake(Canvas): # Наследуемся от класса канвас, ч
         self.direction = 'Right'
         self.directiontemp = 'Right'
         self.loss = False
-        self.x = [0] * int(countBodyW)  # Координаты кадой из частей змейки.
-        self.y = [0] * int(countBodyH)  # Координаты кадой из частей змейки.
+        self.x = [0] * int(countBodyW)  # Координаты каждой из частей змейки.
+        self.y = [0] * int(countBodyH)  # Координаты каждой из частей змейки.
         self.delete(ALL) # Очищаем канву независимо, начал пользователь только играть или уже были игры до этого.
         self.spawnActors() # Создаем обьекты в игре. ниже пишем специально для этого функцию.
         self.after(self.delay, self.timer) # Запускаем таймер, что бы создать анимацию. self.delay - задержка через какое время нам нужно запускать.
 # Вторым аргументом указываем функцию которую нам нужно вызывать через заданый промежуток времени (self.timer) создаем позже.
-# timer отработает один раз, так что в самом методе таймера его тоже нужно запускать.
+# timer отработает один раз, так что в самом методе таймера его тоже нужно запускать, что бы он отрабатывал циклично.
 
 
     def spawnActors(self):
@@ -78,7 +78,7 @@ class Snake(Canvas): # Наследуемся от класса канвас, ч
             self.x[i] = self.x[0] - BODYSIZE * i # Каждый следующий раз мы от головы отступаем на BODYSIZE * i(на существующие блоки).
             self.y[i] = self.y[0] # Координаты по 'y' одинаковые.
         self.create_image(self.x[0], self.y[0], image = self.head, anchor='nw', tag = 'head') # Теперь собственно рисуем всю змейку. x[0], y[0] - координаты,
-            # Дальше что мы выводим. с помощью anchor='nw' делаем наше изображение строго левый верхний угол.и добавляем tag что бы потом легкго найти.
+            # Дальше то что мы выводим. с помощью anchor='nw' крепим наше изображение строго к левому верхнему углу.и добавляем tag что бы потом легкго найти.
         for i in range(LENGTH - 1, 0, -1): # Выводим хвост. тут важно делать расчет с конца.
             self.create_image(self.x[i], self.y[i], image=self.body, anchor='nw', tag='body')
 
@@ -172,24 +172,24 @@ class Snake(Canvas): # Наследуемся от класса канвас, ч
         body = self.find_withtag('body') # Грузим наше изображение.
         items = body + head # Массив состоящий вначале из элементов body потом из элементов head.
         for i in range(len(items)-1): # Перебераем все элементы за исключением последнего. управляем мы только головой все предведущие обьекты стают на место впереди(n-1 на n).
-            currentxy = self.coords(items[i]) # Смотрим текущие координаты спомощю метода coords() и передаем индентификатор обьекта который в.
+            currentxy = self.coords(items[i]) # Смотрим текущие координаты с помощю метода coords() и передаем индентификатор обьекта который в.
             nextxy = self.coords(items[i+1]) # Координаты элемента который находится впереди.
-            self.move(items[i], nextxy[0] - currentxy[0], nextxy[1] - currentxy[1]) # Указываем первым аргументом какой элемент мы двигаем, вторым на сколько двигаем.
-        if self.direction == 'Left': # Голову смещаем в направлении указаным пользователем.
+            self.move(items[i], nextxy[0] - currentxy[0], nextxy[1] - currentxy[1]) # Указываем первым аргументом(какой элемент мы двигаем), вторым на сколько двигаем.
+        if self.direction == 'Left': # Голову смещаем в направлении указаным пользователем 'Left', 'Right', 'Up', 'Down'.
             self.move(head, -BODYSIZE,0) # Смещаем голову на '-BODYSIZE' так как у нас движение влево а по 'y' Не двигаем.
         elif self.direction == 'Right':
             self.move(head, BODYSIZE,0) # Смещаем голову на 1 'BODYSIZE' по 'x'.
         elif self.direction == 'Up':
-            self.move(head, 0, -BODYSIZE) # Тут у нас по 'x' ничего не меняется 'y' смещаемся на квадрат вниз так как движемся в верх
+            self.move(head, 0, -BODYSIZE) # Тут у нас по 'x' ничего не меняется 'y' смещаемся на квадрат вниз так как движемся вверх.
         elif self.direction == 'Down':
             self.move(head, 0, BODYSIZE)
 
 
     def gameOver(self):
-        body = self.find_withtag('body') # Пишем пользователю его длину змейки.
+        body = self.find_withtag('body') # Выводим результат пользователю(количество блоков с головой).
         self.delete(ALL) # Удаляем все что содержится на нашей канве.
         self.create_text(self.winfo_width()/2 , self.winfo_height()/2 - 60, text = 'Вы проиграли!', fill='white', font = 'Tahoma 30', tag='text')
-        # Пишем текст в случаем проиграша пишем по центру.
+        # Пишем текст в случаем проиграша,выводим его по центру.
         self.create_text(self.winfo_width()/2, self.winfo_height()/2, text = 'Длина змейки: ' + str(len(body) + 1), fill='white', font = 'Tahoma 30', tag='text')
         self.create_text(self.winfo_width()/2 , self.winfo_height()/2 + 60, text = 'Нажмите пробел для новой игры!', fill='white', font = 'Tahoma 30', tag='text')
         self.create_text(self.winfo_width()/2 , self.winfo_height()/2 - 260, text = 'Моя почта 9139136@gmail.com', fill='white', font = 'Tahoma 25', tag='text')
@@ -198,8 +198,8 @@ class Snake(Canvas): # Наследуемся от класса канвас, ч
 
 root = Tk()
 root.title('Snake')
-root.board = Snake() # Помещаем в рут нашу канву.
-root.resizable(False, False) # Запретим расширение по высоте и ширине.
+root.board = Snake() # Помещаем в root нашу канву.
+root.resizable(False, False) # Запретим разварачивания окон.
 ws = root.winfo_screenwidth() # Ширина окна у пользователя.
 hs = root.winfo_screenheight() # Высота окна у пользователя.
 x = int(ws / 2 - WIDTH / 2) # Определяем координаты верхнего левого угла.
