@@ -1,2 +1,3 @@
 Django_DjangoREST_Vue/__pycache__/
 .idea/
+*__pycache__/
