@@ -3,11 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="ec06562e-0ffb-4dc0-b374-efc087bf2557" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Django_DjangoREST_Vue/Django_DjangoREST_Vue/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Django_DjangoREST_Vue/Django_DjangoREST_Vue/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Django_DjangoREST_Vue/Django_DjangoREST_Vue/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Django_DjangoREST_Vue/Django_DjangoREST_Vue/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Django_DjangoREST_Vue/orders/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Django_DjangoREST_Vue/orders/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Django_DjangoREST_Vue" />
@@ -20,9 +30,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
@@ -44,6 +56,7 @@
       <workItem from="1591100881117" duration="5037000" />
       <workItem from="1591112055884" duration="4627000" />
       <workItem from="1591198311269" duration="2953000" />
+      <workItem from="1591278100169" duration="2516000" />
     </task>
     <servers />
   </component>
