@@ -1,4 +1,10 @@
+from tkinter import *
 from random import random, sample
+
+window = Tk()
+
+
+
 
 num = random()
 print('Random Float 0.0-1.0: ', num)
