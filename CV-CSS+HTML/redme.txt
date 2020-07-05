@@ -1,2 +1,3 @@
 Ссылка на online страницу с cv:
-https://cranky-brown-bdfe38.netlify.app/
+https://cranky-brown-bdfe38.netlify.app/ - старое
+https://gallant-nightingale-fb13a4.netlify.app/ -05.07.2020
